@@ -81,7 +81,8 @@ function getEmailPropVal(itemorpath, key)
 	}
 
 	if (key === "Date") {
-		// Date object
+		// Outlook Date (typeof returns "date" instead of "object" as
+		// for the normal JavaScript/JScript Date object)
 		val = mailitem.SentOn;
 	} else if (key === "From") {
 		// String
@@ -100,9 +101,10 @@ function getEmailPropVal(itemorpath, key)
  */
 function getOutlookEmailDate(itemorpath)
 {
-	var date;
+	var oldate, date;
 
-	date = getEmailPropVal(itemorpath, "Date");
+	oldate = getEmailPropVal(itemorpath, "Date");
+	date = new Date(oldate);
 
 	if (isNaN(date))
 		return null;
@@ -121,7 +123,7 @@ function isSameEmail(paths)
 
 	for (var i = 0; i < 2; i++) {
 		from[i] = getEmailPropVal(paths[i], "From");
-		date[i] = getEmailPropVal(paths[i], "Date");
+		date[i] = getOutlookEmailDate(paths[i]);
 
 		// Make the date comparable
 		if (!date[i])
