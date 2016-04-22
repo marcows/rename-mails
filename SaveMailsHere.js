@@ -290,7 +290,7 @@ function main()
 	}
 
 	if (feedback)
-		WScript.echo(errorcnt + " Dateien konnten nicht verarbeitet werden:\n\n" + feedback);
+		WScript.echo(errorcnt + " von " + argv.length + " Dateien konnten nicht verarbeitet werden:\n\n" + feedback);
 }
 
 main();
